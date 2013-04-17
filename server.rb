@@ -37,7 +37,7 @@ module Example
         #     pull_requests[repo.name] = client.pull_requests("g5search/#{repo.name}")
         #   end
         # end
-        erb :repos, :locals => {:repos => repos, :pull_requests => pull_requests}
+        erb :index, :locals => {:repos => repos, :pull_requests => pull_requests}
       end
     end
   end

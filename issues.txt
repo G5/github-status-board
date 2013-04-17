@@ -1,1 +1,2 @@
 Where should I store client id and client secret?
+How to make refresh checkbox work

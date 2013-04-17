@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GitHub API Test</title>
+
+  <meta charset="utf-8" />
+
+  <% if params[:refresh] %>
+    <meta http-equiv="refresh" content="<%= params[:refresh] %>" />
+  <% end %>
+
+  <link rel="stylesheet" href="css/styles.css" />
+
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="js/script.js"></script>
+
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="page-heading">
+      <h1>G5 Status Board</h1>
+      <label id="refresh"><input type="checkbox"> Auto Refresh</label>
+    </div>
+
+    <h2>Pull Requests</h2>
+
+    <% pull_requests.each do |repo_name, pull_requests| %>
+      <div class="repo">
+        <h3><%= repo_name %></h3>
+        <% pull_requests.each do |pull| %>
+          <div class="pull">
+            <h4><a href="<%= pull.html_url %>"><%= pull.title %></a></h4>
+            <p><%= pull.body %></p>
+            <p class="meta">Created by: <%= pull.head.user.login %>, <%= pull.created_at %></p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+
+</body>
+</html>
