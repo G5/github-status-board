@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>GitHub API Test</title>
+  <% if params[:refresh] %>
+    <meta http-equiv="refresh" content="<%= params[:refresh] %>" />
+  <% end %>
+  <style>
+    body {
+      background: #efefef;
+    }
+    h2 {
+      text-align: center;
+    }
+    .repo {
+      width: 700px;
+      padding: 16px;
+      margin: 0 auto 32px;
+      background: #fff;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, .3), 0 5px 10px rgba(0, 0, 0, .3);
+    }
+    .pull {
+      border-bottom: 1px solid #ccc;
+    }
+    .meta {
+      color: #333;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>G5 Pull Requests</h2>
+  <% pull_requests.each do |repo_name, pull_requests| %>
+    <div class="repo">
+      <h3><%= repo_name %></h3>
+      <% pull_requests.each do |pull| %>
+        <div class="pull">
+          <h4><a href="<%= pull.html_url %>"><%= pull.title %></a></h4>
+          <p><%= pull.body %></p>
+          <p class="meta">Created by: <%= pull.head.user.login %>, <%= pull.created_at %></p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+</body>
+</html>
