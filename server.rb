@@ -4,8 +4,8 @@ require 'octokit'
 module Example
   class MyBasicApp < Sinatra::Base
 
-    CLIENT_ID = ENV['GH_BASIC_CLIENT_ID']
-    CLIENT_SECRET = ENV['GH_BASIC_SECRET_ID']
+    CLIENT_ID = ENV['G5_CLIENT_ID']
+    CLIENT_SECRET = ENV['G5_SECRET_ID']
 
     enable :sessions
 
