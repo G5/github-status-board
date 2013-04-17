@@ -5,7 +5,7 @@ module Example
   class MyBasicApp < Sinatra::Base
 
     CLIENT_ID = ENV['G5_CLIENT_ID']
-    CLIENT_SECRET = ENV['G5_SECRET_ID']
+    CLIENT_SECRET = ENV['G5_SECRET_KEY']
 
     enable :sessions
 
