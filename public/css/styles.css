@@ -1,5 +1,15 @@
-header[role=banner] .btn {
-  margin-top: 30px;
+header[role=banner] {
+  text-align: center;
+}
+@media (min-width: 768px) {
+  header[role=banner] {
+    text-align: left;
+  }
+  header[role=banner] .btn {
+    position: absolute;
+    top: 30px;
+    right: 0;
+  }
 }
 .accordion-group {
   border: none;
