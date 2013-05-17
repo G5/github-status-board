@@ -1,6 +1,31 @@
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
 header[role=banner] {
   text-align: center;
 }
+.navbar-brand {
+  max-width: 500px;
+}
+.repo {
+  margin-bottom: 2em;
+  border-top: 2px solid #ccc;
+}
+.repo:first-child {
+  border-top: none;
+}
+.repo h3 {
+  color: #FF7300;
+}
+.pull {
+  border-bottom: 1px solid #ccc;
+}
+.pull:last-child {
+  border-bottom: none;
+}
+
 @media (min-width: 768px) {
   header[role=banner] {
     text-align: left;
@@ -10,21 +35,4 @@ header[role=banner] {
     top: 30px;
     right: 0;
   }
-}
-.accordion-group {
-  border: none;
-}
-.accordion h3 {
-  margin: 0;
-}
-.accordion-heading .accordion-toggle,
-.accordion-inner {
-  padding-left: 0;
-  padding-right: 0;
-}
-.accordion h3 a {
-  color: #FF7300;
-}
-.accordion h3 a:hover {
-  text-decoration: none;
 }

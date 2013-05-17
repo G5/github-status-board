@@ -5,16 +5,13 @@
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <% if params[:refresh] %>
-    <meta http-equiv="refresh" content="<%= params[:refresh] %>" />
+
+  <% if params[:refresh] == 'true' %>
+    <meta http-equiv="refresh" content="30" />
   <% end %>
 
   <link rel="stylesheet" href="css/bootstrap.css" />
   <link rel="stylesheet" href="css/styles.css" />
-
-  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="js/bootstrap.js"></script>
-  <script src="js/script.js"></script>
 
 </head>
 <body>
@@ -23,59 +20,41 @@
     <div class="container">
       <div class="row">
         <div class="col-span-12">
-          <h1 class="navbar-brand">G5 Status Board</h1>
-          <% if params[:refresh] %>
-            <a href="http://localhost:4567" id="refresh" class="btn btn-small pull-right">Turn Off Auto Refresh</a>
-          <% else %>
-            <a href="http://localhost:4567?refresh=30" id="refresh" class="btn btn-info btn-small">Turn On Auto Refresh</a>
-          <% end %>
+          <h1 class="navbar-brand">G5 Status Board: Pull Requests</h1>
+          <%= refresh_link %>
         </div>
       </div>
     </div>
   </header>
 
   <div class="container">
+    <%= show_hide_link('g5-client-hub') %>
 
     <section role="main" class="row">
 
-      <div class="col-span-12">
+      <ul id="repos" class="col-span-12">
+        <% pull_requests.each_with_index do |(repo_name, pull_requests), index| %>
 
-        <header class="page-header">
-          <h2>Open Pull Requests <small>click repo name to hide</small></h2>
-        </header>
+          <% if !pull_requests.empty? %>
+            <li class="repo">
+              <article>
 
-        <div id="repos" class="accordion">
+                <header>
+                  <h3><%= repo_name %></h3>
+                </header>
 
-          <% pull_requests.each_with_index do |(repo_name, pull_requests), index| %>
-            <article class="repo accordion-group">
-
-              <header class="accordion-heading">
-                <h3><a href="#repo-<%= index %>" class="accordion-toggle" data-toggle="collapse" data-parent="#repos"><%= repo_name %></a></h3>
-              </header>
-
-              <div id="repo-<%= index %>" class="accordion-body collapse in">
-
-                <% if !pull_requests.empty? %>
-
-                  <% pull_requests.each do |pull| %>
-                    <div class="pull accordion-inner">
-                      <h4><a href="<%= pull.html_url %>"><%= pull.title %></a> <small>Created <%= pull.created_at %></small></h4>
-                      <p><%= pull.body %></p>
-                    </div>
-                  <% end %>
-
-                <% else %>
-
-                  <div class="pull accordion-inner">
-                    <p>No open pull requests</p>
+                <% pull_requests.each do |pull| %>
+                  <div class="pull">
+                    <h4><a href="<%= pull.html_url %>"><%= pull.title %></a> <small>Created <%= pull.created_at %></small></h4>
+                    <p><%= pull.body %></p>
                   </div>
                 <% end %>
+              </article> <!-- end .repo -->
+            </li>
 
-              </div>
-            </article>
           <% end %>
-        </div>
-      </div>
+        <% end %>
+      </ul> <!-- end #repos -->
     </section>
   </div> <!-- end .container -->
 
