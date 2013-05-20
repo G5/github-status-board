@@ -28,33 +28,38 @@
   </header>
 
   <div class="container">
-    <%= show_hide_link('g5-client-hub') %>
 
     <section role="main" class="row">
 
       <ul id="repos" class="col-span-12">
         <% pull_requests.each_with_index do |(repo_name, pull_requests), index| %>
-
-          <% if !pull_requests.empty? %>
+          <% if show_repo?(repo_name) %>
             <li class="repo">
               <article>
 
                 <header>
-                  <h3><%= repo_name %></h3>
+                  <h3><%= repo_name %> <small><%= show_hide_link(repo_name) %></small></h3>
                 </header>
 
-                <% pull_requests.each do |pull| %>
-                  <div class="pull">
-                    <h4><a href="<%= pull.html_url %>"><%= pull.title %></a> <small>Created <%= pull.created_at %></small></h4>
-                    <p><%= pull.body %></p>
-                  </div>
+                <% if !pull_requests.empty? %>
+
+                  <% pull_requests.each do |pull| %>
+                    <div class="pull">
+                      <h4><a href="<%= pull.html_url %>"><%= pull.title %></a> <small>Created <%= pull.created_at %></small></h4>
+                      <p><%= pull.body %></p>
+                    </div>
+                  <% end %>
+
+                <% else %>
+                  <p>No open pull requests for this repo</p>
                 <% end %>
+
               </article> <!-- end .repo -->
             </li>
-
           <% end %>
         <% end %>
       </ul> <!-- end #repos -->
+      <%= show_all_repos %>
     </section>
   </div> <!-- end .container -->
 

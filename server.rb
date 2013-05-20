@@ -52,7 +52,7 @@ module G5
     end
 
     def refresh_link
-      repos = params[:repos] || ''
+      hidden_repos = params[:hidden_repos] || ''
       refresh = params[:refresh] || ''
       link_start = "<a id='refresh' href='#{HOST}"
       link_classes = 'btn btn-small'
@@ -69,12 +69,12 @@ module G5
         link_text = 'Turn On Auto Refresh'
       end
 
-      if !repos.empty? && !refresh.empty?
-        full_link = "#{link_start}?repos=#{repos}&refresh=#{refresh}' class='#{link_classes}'>#{link_text}</a>"
-      elsif repos.empty? && !refresh.empty?
+      if !hidden_repos.empty? && !refresh.empty?
+        full_link = "#{link_start}?hidden_repos=#{hidden_repos}&refresh=#{refresh}' class='#{link_classes}'>#{link_text}</a>"
+      elsif hidden_repos.empty? && !refresh.empty?
         full_link = "#{link_start}?refresh=#{refresh}' class='#{link_classes}'>#{link_text}</a>"
-      elsif refresh.empty? && !repos.empty?
-        full_link = "#{link_start}?repos=#{repos}' class='#{link_classes}'>#{link_text}</a>"
+      elsif refresh.empty? && !hidden_repos.empty?
+        full_link = "#{link_start}?hidden_repos=#{hidden_repos}' class='#{link_classes}'>#{link_text}</a>"
       else
         full_link = "#{link_start}' class='#{link_classes}'>#{link_text}</a>"
       end
@@ -90,22 +90,41 @@ module G5
         refresh = ''
       end
 
-      repos = params[:repos] || ''
-      repos = repos.split(',')
+      hidden_repos = params[:hidden_repos] || ''
+      hidden_repos = hidden_repos.split(',')
 
       link_start = "<a href='#{HOST}"
       link_end = "' />Hide</a>"
 
-      if repos.include? repo
-        repos.delete(repo)
+      if hidden_repos.include? repo
+        hidden_repos.delete(repo)
       else
-        repos << repo
+        hidden_repos << repo
       end
 
-      repos = repos.join(',')
+      hidden_repos = hidden_repos.join(',')
 
-      full_link = "#{link_start}?repos=#{repos}#{refresh}#{link_end}"
+      full_link = "#{link_start}?hidden_repos=#{hidden_repos}#{refresh}#{link_end}"
       full_link
+    end
+
+    def show_repo?(repo)
+      hidden_repos = params[:hidden_repos] || ''
+      hidden_repos = hidden_repos.split(',')
+      if hidden_repos.include? repo
+        return false
+      else
+        return true
+      end
+    end
+
+    def show_all_repos
+      refresh = params[:refresh] || ''
+      if refresh == 'true'
+        '<a href="http://localhost:4567?refresh=true" class="btn btn-large btn-primary">Show all repos</a>'
+      else
+        '<a href="http://localhost:4567" class="btn btn-large btn-primary">Show all repos</a>'
+      end
     end
 
   end
