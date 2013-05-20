@@ -7,7 +7,7 @@ module G5
 
     CLIENT_ID = ENV['G5_CLIENT_ID']
     CLIENT_SECRET = ENV['G5_SECRET_KEY']
-    HOST = 'http://localhost:4567'
+    HOST = 'http://g5-status-board.herokuapp.com'
 
     enable :sessions
 
@@ -121,9 +121,9 @@ module G5
     def show_all_repos
       refresh = params[:refresh] || ''
       if refresh == 'true'
-        '<a href="http://localhost:4567?refresh=true" class="btn btn-large btn-primary">Show all repos</a>'
+        '<a href="#{HOST}?refresh=true" class="btn btn-large btn-primary">Show all repos</a>'
       else
-        '<a href="http://localhost:4567" class="btn btn-large btn-primary">Show all repos</a>'
+        '<a href="#{HOST}" class="btn btn-large btn-primary">Show all repos</a>'
       end
     end
 
