@@ -121,9 +121,9 @@ module G5
     def show_all_repos
       refresh = params[:refresh] || ''
       if refresh == 'true'
-        '<a href="#{HOST}?refresh=true" class="btn btn-large btn-primary">Show all repos</a>'
+        '<a href="' + HOST + '?refresh=true" class="btn btn-large btn-primary">Show all repos</a>'
       else
-        '<a href="#{HOST}" class="btn btn-large btn-primary">Show all repos</a>'
+        '<a href="' + HOST + '" class="btn btn-large btn-primary">Show all repos</a>'
       end
     end
 
