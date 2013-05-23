@@ -7,7 +7,6 @@ module G5
 
     CLIENT_ID = ENV['G5_CLIENT_ID']
     CLIENT_SECRET = ENV['G5_SECRET_KEY']
-    HOST = 'http://g5-status-board.herokuapp.com'
 
     enable :sessions
 
@@ -54,7 +53,7 @@ module G5
     def refresh_link
       hidden_repos = params[:hidden_repos] || ''
       refresh = params[:refresh] || ''
-      link_start = "<a id='refresh' href='#{HOST}"
+      link_start = "<a id='refresh' href='/"
       link_classes = 'btn btn-small'
       link_params = ''
       link_text = ''
@@ -93,7 +92,7 @@ module G5
       hidden_repos = params[:hidden_repos] || ''
       hidden_repos = hidden_repos.split(',')
 
-      link_start = "<a href='#{HOST}"
+      link_start = "<a href='/"
       link_end = "' />Hide</a>"
 
       if hidden_repos.include? repo
@@ -121,9 +120,9 @@ module G5
     def show_all_repos
       refresh = params[:refresh] || ''
       if refresh == 'true'
-        '<a href="' + HOST + '?refresh=true" class="btn btn-large btn-primary">Show all repos</a>'
+        '<a href="/?refresh=true" class="btn btn-large btn-primary">Show all repos</a>'
       else
-        '<a href="' + HOST + '" class="btn btn-large btn-primary">Show all repos</a>'
+        '<a href="/" class="btn btn-large btn-primary">Show all repos</a>'
       end
     end
 
