@@ -1,3 +1,6 @@
+body {
+  padding-bottom: 2em;
+}
 ul {
   margin: 0;
   padding: 0;
@@ -5,6 +8,9 @@ ul {
 }
 header[role=banner] {
   text-align: center;
+}
+header[role=banner] h1 {
+  text-transform: uppercase;
 }
 .navbar-brand {
   max-width: 500px;

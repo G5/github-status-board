@@ -20,6 +20,7 @@ module G5
     register Sinatra::Auth::Github
 
     get '/' do
+
       if !authenticated?
         authenticate!
       else
@@ -29,28 +30,22 @@ module G5
           :auto_traversal => true
         )
 
-        repos = client.organization_repositories('g5search', {:type => 'private'})
+        organization = client.organization(params[:org] || 'g5search')
 
-        pull_requests = {
-          "g5-client-hub" => client.pull_requests("g5search/g5-client-hub"),
-          "g5-widget-garden" => client.pull_requests("g5search/g5-widget-garden"),
-          "g5-theme-garden" => client.pull_requests("g5search/g5-theme-garden"),
-          "g5-layout-garden" => client.pull_requests("g5search/g5-layout-garden"),
-        }
+        repos = client.organization_repositories(organization.login)
 
-        # pull_requests = {}
-        #
-        # repos.each do |repo|
-        #   if !client.pull_requests("g5search/#{repo.name}").empty?
-        #     pull_requests[repo.name] = client.pull_requests("g5search/#{repo.name}")
-        #   end
-        # end
+        pull_requests = {}
 
-        erb :index, :locals => {:repos => repos, :pull_requests => pull_requests}
+        repos.each do |repo|
+          pull_requests[repo.name] = client.pull_requests("#{organization.login}/#{repo.name}")
+        end
+
+        erb :index, :locals => {:repos => repos, :pull_requests => pull_requests, :organization => organization}
       end
     end
 
     def refresh_link
+      organization = params[:org] || ''
       hidden_repos = params[:hidden_repos] || ''
       refresh = params[:refresh] || ''
       link_start = "<a id='refresh' href='/"

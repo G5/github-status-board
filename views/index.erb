@@ -20,7 +20,7 @@
     <div class="container">
       <div class="row">
         <div class="col-span-12">
-          <h1 class="navbar-brand">G5 Status Board: Pull Requests</h1>
+          <h1 class="navbar-brand"><%= organization.login %>: Pull Requests</h1>
           <%= refresh_link %>
         </div>
       </div>
@@ -32,6 +32,7 @@
     <section role="main" class="row">
 
       <div class="col-span-12">
+
         <ul id="repos">
           <% pull_requests.each_with_index do |(repo_name, pull_requests), index| %>
             <% if show_repo?(repo_name) %>
